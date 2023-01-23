@@ -1,0 +1,134 @@
+﻿@model IEnumerable<Modelo.Cadastro.Produto>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<header>
+</header>
+<div class="container">
+    <div class="container-cards">
+        <h1>
+            Últimos 30 dias
+        </h1>
+        @foreach (var item in Model)
+        {
+            int contador = 0;
+
+            if (item.DataCadastro.AddDays(30) >= DateTime.Now)
+            {
+                <div class="card">
+                    <div>
+                        <div class="">
+                            @if (item.NomeArquivo == null)
+                            {
+                                <div class="img-card">
+                                    Nenhuma imagem adicionada
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="">
+                                    <img class="img-card"
+                                         src="@Url.Action("GetLogotipo2", "Produtos", new { id = item.ProdutoId })"
+                                     />
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div>
+                        <div class="informations">
+                            <span class="information">
+                                @Html.DisplayFor(modelItem => item.Nome)
+                            </span>
+                        </div>
+                        
+                        <div class="informations">
+                            <div class="">
+                                @Html.DisplayFor(modelItem => item.DataCadastro)
+                            </div>
+                            <div>
+                                @Html.DisplayFor(modelItem => item.Categoria.Nome)
+
+                                @Html.DisplayFor(modelItem => item.Fabricante.Nome)
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            }
+            contador++;
+            if (contador > 3)
+            {
+                break;
+            }
+
+        }
+    </div>
+    <br/>
+    <div>
+        <h1>
+            Destaque
+        </h1>
+        @foreach (var item in Model)
+        {
+            int contador = 0;
+
+            if (item.Destaque == true)
+            {
+                <div class="card">
+                    <div>
+                        <div class="">
+                            @if (item.NomeArquivo == null)
+                            {
+                                <div class="img-card">
+                                    Nenhuma imagem adicionada
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="">
+                                    <img class="img-card"
+                                         src="@Url.Action("GetLogotipo2", "Produtos", new { id = item.ProdutoId })" />
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div>
+                        <div class="informations">
+                            <span class="information">
+                                @Html.DisplayFor(modelItem => item.Nome)
+                            </span>
+                        </div>
+
+                        <div class="informations">
+                            <div class="">
+                                @Html.DisplayFor(modelItem => item.DataCadastro)
+                            </div>
+                            <div>
+                                @Html.DisplayFor(modelItem => item.Categoria.Nome)
+
+                                @Html.DisplayFor(modelItem => item.Fabricante.Nome)
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            }
+            contador++;
+            if (contador > 3)
+            {
+                break;
+            }
+
+        }
+    </div>
+    
+    
+
+
+</div>
